@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { ReactComponent as Logo } from '../../assets/shirtnpant-high-resolution-logo-color-on-transparent-background.svg';
+import { ReactComponent as Logo } from '../../assets/Untitled (1).svg';
 import './navigation.styles.scss';
 
 const Navigation = () => {
