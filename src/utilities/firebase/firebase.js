@@ -1,5 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyCYCRBMxDxYhRNgBLtN9GNk9VM3fr64hJg",
@@ -19,4 +21,28 @@ provider.setCustomParameters({
     'prompt': 'select_account'
 })
 
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider); 
+export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+const db = getFirestore(firebaseApp);
+
+export const createUserDocumnet = async (userAuth) => {
+    const { uid, displayName, email } = userAuth;
+    const userDocRef = doc(db, 'users', uid);
+    const userSnapshot = await getDoc(userDocRef);
+    const createdAt = new Date();
+
+    if (!userSnapshot.exists()) {
+        try {
+            await setDoc(userDocRef, {
+                displayName,
+                email,
+                createdAt
+            })
+            console.log('successfully created userDocument');
+        }
+        catch (err) {
+            console.log('error creating user', err.message);
+        }
+    }
+    return userDocRef;
+}

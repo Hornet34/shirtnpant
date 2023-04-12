@@ -1,9 +1,15 @@
-import { signInWithGooglePopup } from "../../utilities/firebase/firebase";
+import { signInWithGooglePopup, createUserDocumnet } from "../../utilities/firebase/firebase";
 
 const SignIN = () => {
     const googleUser = async () => {
-        const respone = await signInWithGooglePopup();
-        console.log(respone);
+        try {
+            const respone = await signInWithGooglePopup();
+            await createUserDocumnet(respone.user);
+        }
+        catch (err) {
+            console.log('sign in with google failed', err.message)
+        }
+
     }
     return (
         <div>
