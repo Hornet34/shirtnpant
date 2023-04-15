@@ -1,0 +1,27 @@
+.sign-in-container{
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+
+    h2{
+        margin: 10px 0;
+    }
+    .formbtn{
+        display: flex;
+        flex-direction: column;
+        // justify-content: around;
+        align-items: center;
+        p{
+            margin:5px;
+        }
+    }
+    a{
+        color:blue;
+        border-bottom: 1px solid blue;
+    }
+    .signup-prompt{
+        margin-bottom: 20px;
+    }
+    
+}
