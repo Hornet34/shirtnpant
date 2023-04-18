@@ -139,7 +139,18 @@ const SignUpForm = () => {
             getRegisteredMails();
         }
         catch (err) {
-            console.log(err.code);
+            switch (err.code) {
+                case "auth/email-already-in-use":
+                    alert('Email Already in Use');
+                    break;
+                case "auth/weak-password":
+                    alert('Weak Password, Try Again');
+                    break;
+                default:
+                    alert('Sign-up failed');
+                    console.log(err.message);
+            }
+
         }
     }
 

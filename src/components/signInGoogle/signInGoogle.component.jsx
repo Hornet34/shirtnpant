@@ -8,12 +8,17 @@ const SignInGoogle = () => {
             await createUserDocumnet(respone.user);
         }
         catch (err) {
-            console.log('sign in with google failed', err.message)
+            if (err.code === "auth/popup-closed-by-user") alert('Sign-in Failed, Popup Closed By User');
+            else {
+                alert('Sign in Failed');
+                console.log(err.message)
+            }
+
         }
 
     }
     return (
-        <Button type="button" buttonType='google' onClick={googleUser}>SIGN IN With Google</Button>
+        <Button type="button" buttonType='google' onClick={googleUser}>GOOGLE SIGN IN</Button>
     );
 }
 

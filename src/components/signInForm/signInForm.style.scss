@@ -1,7 +1,6 @@
 .sign-in-container{
     display: flex;
     flex-direction: column;
-    // justify-content: center;
     align-items: center;
 
     h2{
@@ -9,12 +8,8 @@
     }
     .formbtn{
         display: flex;
-        flex-direction: column;
-        // justify-content: around;
+        justify-content: space-between;
         align-items: center;
-        p{
-            margin:5px;
-        }
     }
     a{
         color:blue;
