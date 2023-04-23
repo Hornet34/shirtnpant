@@ -4,6 +4,7 @@ import FormInput from '../formInput/formInput.component';
 import Button from '../button/button.component';
 import SignInGoogle from '../signInGoogle/signInGoogle.component';
 import { signInUserWithEmailAndPassword } from '../../utilities/firebase/firebase';
+import { useNavigate } from 'react-router-dom';
 
 const defaultFormFields = {
     email: '',
@@ -17,6 +18,7 @@ const SignInForm = () => {
     const [passwordAlert, setPasswordAlert] = useState('');
     const [emailAlert, setEmailAlert] = useState('');
     const { email, password } = formFields;
+    const navigate = useNavigate();
 
 
     const validatingPassword = () => {
@@ -76,8 +78,8 @@ const SignInForm = () => {
 
         try {
             const user = await signInUserWithEmailAndPassword(email, password);
-            console.log(user);
             resetForm();
+            navigate('/');
         }
         catch (err) {
             console.log(err.code);

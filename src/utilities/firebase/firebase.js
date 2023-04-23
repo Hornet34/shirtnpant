@@ -1,5 +1,9 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+    getAuth, GoogleAuthProvider, signInWithPopup,
+    createUserWithEmailAndPassword, signInWithEmailAndPassword,
+    onAuthStateChanged, signOut
+} from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore';
 
 
@@ -65,4 +69,12 @@ export const createUserDocumnet = async (userAuth, info) => {
 export const getEmailList = async (email) => {
     const usersSnapshot = await getDocs(collection(db, 'users'));
     return usersSnapshot.docs.map((doc) => doc.data().email);
+}
+
+export const onAuthStateChangedListner = (callback) => {
+    onAuthStateChanged(auth, callback);
+}
+
+export const signOutListner = async () => {
+    await signOut(auth);
 }

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { createAuthUserWithEmailAndPassword, createUserDocumnet, getEmailList } from '../../utilities/firebase/firebase';
 import FormInput from '../formInput/formInput.component';
 import Button from '../button/button.component';
+import { useNavigate } from 'react-router-dom';
 
 const defaultFormFields = {
     displayName: '',
@@ -22,6 +23,7 @@ const SignUpForm = () => {
     const [nameAlert, setNameAlert] = useState('');
     const [emailAlert, setEmailAlert] = useState('');
     const { displayName, email, password, confirmPassword } = formFields;
+    const navigate = useNavigate();
 
     const checkEmailExists = (email) => {
         for (let mail of registeredMails) {
@@ -137,6 +139,7 @@ const SignUpForm = () => {
             await createUserDocumnet(user, { displayName });
             resetForm();
             getRegisteredMails();
+            navigate('/');
         }
         catch (err) {
             switch (err.code) {
