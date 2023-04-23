@@ -3,14 +3,7 @@ import Home from './routes/home/home.component';
 import SignIn from './routes/signIn/signIn.component'
 import SignUp from './routes/signUp/signUp.component'
 import { Routes, Route } from 'react-router-dom';
-
-
-
-const Shop = () => {
-  return (
-    <h1>I am a Shop</h1>
-  );
-}
+import Shop from './routes/shop/shop.component'
 
 const App = () => {
   return (

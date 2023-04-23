@@ -4,9 +4,13 @@ import { ReactComponent as Logo } from '../../assets/Untitled (1).svg';
 import './navigation.styles.scss';
 import { UserContext } from '../../context/user.context';
 import { signOutListner } from '../../utilities/firebase/firebase';
+import CartIcon from '../../components/cart-icon/cart-icon.component';
+import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
+import { CartDropdownContext } from '../../context/cart-dropdown.context';
 
 const Navigation = () => {
     const { currentUser } = useContext(UserContext);
+    const { visible } = useContext(CartDropdownContext);
     return (
         <Fragment>
             <div className="navigation">
@@ -17,7 +21,10 @@ const Navigation = () => {
                     <Link to='/shop' className="nav-link">SHOP</Link>
                     {!currentUser ? (<Link to='/signIn' className="nav-link">SIGN IN</Link>) :
                         (<Link to='/' className='nav-link' onClick={signOutListner}>LOGOUT</Link>)}
+                    <CartIcon />
                 </div>
+                {visible ? (<CartDropdown />) : null}
+
             </div>
             <Outlet />
         </Fragment>
