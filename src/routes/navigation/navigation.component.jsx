@@ -6,11 +6,11 @@ import { UserContext } from '../../context/user.context';
 import { signOutListner } from '../../utilities/firebase/firebase';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
-import { CartDropdownContext } from '../../context/cart-dropdown.context';
+import { CartContext } from '../../context/cart.context';
 
 const Navigation = () => {
     const { currentUser } = useContext(UserContext);
-    const { visible } = useContext(CartDropdownContext);
+    const { isCartOpen } = useContext(CartContext);
     return (
         <Fragment>
             <div className="navigation">
@@ -23,7 +23,7 @@ const Navigation = () => {
                         (<Link to='/' className='nav-link' onClick={signOutListner}>LOGOUT</Link>)}
                     <CartIcon />
                 </div>
-                {visible ? (<CartDropdown />) : null}
+                {isCartOpen ? (<CartDropdown />) : null}
 
             </div>
             <Outlet />
