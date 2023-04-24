@@ -1,8 +1,8 @@
-import './signInForm.style.scss';
+import './sign-in-form.style.scss';
 import { useState, useEffect } from "react";
-import FormInput from '../formInput/formInput.component';
+import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-import SignInGoogle from '../signInGoogle/signInGoogle.component';
+import SignInGoogle from '../sign-in-google/sign-in-google.component';
 import { signInUserWithEmailAndPassword } from '../../utilities/firebase/firebase';
 import { useNavigate } from 'react-router-dom';
 
@@ -77,7 +77,7 @@ const SignInForm = () => {
         }
 
         try {
-            const user = await signInUserWithEmailAndPassword(email, password);
+            await signInUserWithEmailAndPassword(email, password);
             resetForm();
             navigate('/');
         }

@@ -1,7 +1,7 @@
-import './signUpForm.style.scss';
+import './sign-up-form.style.scss';
 import { useState, useEffect } from "react";
 import { createAuthUserWithEmailAndPassword, createUserDocumnet, getEmailList } from '../../utilities/firebase/firebase';
-import FormInput from '../formInput/formInput.component';
+import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 import { useNavigate } from 'react-router-dom';
 
@@ -172,7 +172,6 @@ const SignUpForm = () => {
                 </div>
 
             </form>
-            {/* <SignInGoogle /> */}
         </div>
     );
 }
