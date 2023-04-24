@@ -4,7 +4,7 @@ import {
     createUserWithEmailAndPassword, signInWithEmailAndPassword,
     onAuthStateChanged, signOut
 } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, writeBatch } from 'firebase/firestore';
 
 
 
@@ -77,4 +77,23 @@ export const onAuthStateChangedListner = (callback) => {
 
 export const signOutListner = async () => {
     await signOut(auth);
+}
+
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    const colRef = collection(db, collectionKey);
+    const batch = writeBatch(db);
+
+    objectsToAdd.forEach(object => {
+        const docRef = doc(colRef, object.title.toLowerCase());
+        batch.set(docRef, object);
+    });
+
+    await batch.commit();
+    console.log('Done');
+}
+
+export const getCategoriesData = async () => {
+    const categoriesSnapshot = await getDocs(collection(db, 'categories'))
+    const categories = categoriesSnapshot.docs.map((doc) => doc.data())
+    return categories;
 }

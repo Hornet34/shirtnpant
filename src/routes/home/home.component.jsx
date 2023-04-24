@@ -1,7 +1,7 @@
-import CategoryMenu from '../../components/category-menu/category-menu.component';
+import HomeMenu from "../../components/home-menu/home-menu.component";
 
 const Home = () => {
-    const categories = [
+    const menu = [
         {
             "id": 1,
             "title": "hats",
@@ -31,7 +31,7 @@ const Home = () => {
 
 
     return (
-        <CategoryMenu categories={categories} />
+        <HomeMenu menu={menu} />
     );
 }
 
