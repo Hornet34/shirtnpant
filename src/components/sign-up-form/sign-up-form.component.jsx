@@ -1,4 +1,4 @@
-import './sign-up-form.style.scss';
+import { H2, SignUpContainer, FormBtn } from './sign-up-form.style';
 import { useState, useEffect } from "react";
 import { createAuthUserWithEmailAndPassword, createUserDocumnet, getEmailList } from '../../utilities/firebase/firebase';
 import FormInput from '../form-input/form-input.component';
@@ -159,20 +159,20 @@ const SignUpForm = () => {
 
 
     return (
-        <div className='sign-up-container'>
+        <SignUpContainer>
 
-            <h2>SIGN UP</h2>
+            <H2>SIGN UP</H2>
             <form onSubmit={handleOnSubmit}>
                 <FormInput label='Name' type="text" id="displayName" onChange={handleChange} value={displayName} alertMessage={nameAlert} />
                 <FormInput label='Email' type="email" id="email" onChange={handleChange} value={email} alertMessage={emailAlert} />
                 <FormInput label='Password' type="password" id="password" onChange={handleChange} value={password} />
                 <FormInput label='Confirm Password' type="password" id="confirmPassword" onChange={handleChange} value={confirmPassword} alertMessage={passwordAlert} />
-                <div className='formbtn'>
+                <FormBtn>
                     <Button type="submit" >SIGN UP</Button>
-                </div>
+                </FormBtn>
 
             </form>
-        </div>
+        </SignUpContainer>
     );
 }
 export default SignUpForm;

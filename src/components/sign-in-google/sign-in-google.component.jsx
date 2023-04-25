@@ -1,5 +1,5 @@
 import { signInWithGooglePopup, createUserDocumnet } from "../../utilities/firebase/firebase";
-import Button from '../button/button.component';
+import Button, { buttonTypeClasses } from '../button/button.component';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -23,7 +23,7 @@ const SignInGoogle = () => {
 
     }
     return (
-        <Button type="button" buttonType='google' onClick={googleUser}>GOOGLE SIGN IN</Button>
+        <Button type="button" buttonType={buttonTypeClasses.google} onClick={googleUser}>GOOGLE SIGN IN</Button>
     );
 }
 

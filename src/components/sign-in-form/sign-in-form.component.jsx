@@ -1,4 +1,4 @@
-import './sign-in-form.style.scss';
+import { SignInContainer, H2, A, SignUpPrompt, FormBtn } from './sign-in-form.style.jsx';
 import { useState, useEffect } from "react";
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
@@ -100,21 +100,21 @@ const SignInForm = () => {
 
 
     return (
-        <div className='sign-in-container'>
+        <SignInContainer>
 
-            <h2>SIGN IN</h2>
+            <H2>SIGN IN</H2>
             <form onSubmit={handleOnSubmit}>
                 <FormInput label='Email' type="email" id="email" onChange={handleChange} value={email} alertMessage={emailAlert} />
                 <FormInput label='Password' type="password" id="password" onChange={handleChange} value={password} alertMessage={passwordAlert} />
-                <div className='signup-prompt'><span>Don't have an account?  </span><a href='/signUp'>register</a></div>
+                <SignUpPrompt><span>Don't have an account?  </span><A href='/signUp'>register</A></SignUpPrompt>
 
-                <div className='formbtn'>
+                <FormBtn>
                     <Button type="submit" >SIGN IN</Button>
                     <p>or</p>
                     <SignInGoogle />
-                </div>
+                </FormBtn>
             </form>
-        </div>
+        </SignInContainer>
     );
 }
 export default SignInForm;

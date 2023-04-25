@@ -1,17 +1,19 @@
-import './home-menu-item.styles.scss';
+import { MenuItemContainer, BackgroundImage, Body } from './home-menu-item.styles';
+import { useNavigate } from 'react-router-dom';
 
 const HomeMenuItem = (props) => {
-
-    const { title, imageUrl } = props.menuItem;
+    const navigate = useNavigate();
+    const { title, imageUrl, route } = props.menuItem;
+    const navigationHandler = () => navigate(route);
 
     return (
-        <div className="menu-item-container">
-            <div className="background-image" style={{ backgroundImage: `url(${imageUrl})` }} />
-            <div className="body">
+        <MenuItemContainer onClick={navigationHandler}>
+            <BackgroundImage imageUrl={imageUrl} />
+            <Body className="body">
                 <h2>{title}</h2>
                 <p>Shop Now</p>
-            </div>
-        </div>
+            </Body>
+        </MenuItemContainer>
     )
 }
 
