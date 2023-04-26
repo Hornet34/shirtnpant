@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer } from "react";
 
 
 const addItem = (cartItems, productToAdd) => {
@@ -45,10 +45,53 @@ export const CartContext = createContext({
     totalPrice: () => null
 })
 
+const CartActionTypes = {
+    Is_Cart_Open: 'Is_Cart_Open',
+    Cart_Items: 'Cart_Items',
+    Cart_Quantity: 'Cart_Quantity'
+}
+
+const CartReducer = (state, action) => {
+    const { type, payload } = action;
+
+    switch (type) {
+        case CartActionTypes.Is_Cart_Open:
+            return {
+                ...state, isCartOpen: payload
+            };
+        case CartActionTypes.Cart_Items:
+            return {
+                ...state, cartItems: payload
+            };
+        case CartActionTypes.Cart_Quantity:
+            return {
+                ...state, cartQuantity: payload
+            };
+        default:
+            throw new Error(`Unhandled ${type} in CartReducer`);
+    }
+}
+
+const IntitalState = {
+    isCartOpen: false,
+    cartItems: [],
+    cartQuantity: []
+}
+
 export const CartProvider = ({ children }) => {
-    const [isCartOpen, setIsCartOpen] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
-    const [cartQuantity, setCartQuantity] = useState([]);
+    const [state, dispatch] = useReducer(CartReducer, IntitalState);
+
+    const { isCartOpen, cartItems, cartQuantity } = state;
+
+    const setIsCartOpen = (cartStatus) => {
+        dispatch({ type: CartActionTypes.Is_Cart_Open, payload: cartStatus })
+    }
+    const setCartItems = (Items) => {
+        dispatch({ type: CartActionTypes.Cart_Items, payload: Items })
+    }
+    const setCartQuantity = (Quantity) => {
+        dispatch({ type: CartActionTypes.Cart_Quantity, payload: Quantity })
+    }
 
     useEffect(() => {
         let quantity = cartItems.reduce((accumulator, currentElement) => accumulator + currentElement.quantity, 0);
