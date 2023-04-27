@@ -8,12 +8,14 @@ import ProductCard from '../../components/product-card/product-card.component';
 const Category = () => {
 
     const { category } = useParams();
+
+
     const categories = useSelector(selectCategoriesData);
     const [products, setProducts] = useState([]);
     useEffect(() => {
+
         setProducts(categories.filter((itemCategory) => itemCategory.title.toLowerCase() === category));
     }, [categories, category])
-    console.log(products);
     return (
         <Fragment>
             {products.length > 0 && <CategoryTitle>{products[0].title.toUpperCase()}</CategoryTitle>}

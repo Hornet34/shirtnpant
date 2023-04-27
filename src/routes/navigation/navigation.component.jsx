@@ -23,7 +23,7 @@ const Navigation = () => {
                 <NavLinks>
                     <NavLink to='/shop' >SHOP</NavLink>
                     {!currentUser ? (<NavLink to='/signIn' >SIGN IN</NavLink>) :
-                        (<NavLink to='/' onClick={signOutListner}>LOGOUT</NavLink>)}
+                        (<NavLink as='span' onClick={signOutListner}>SIGN OUT</NavLink>)}
                     <CartIcon />
                 </NavLinks>
                 {isCartOpen ? (<CartDropdown />) : null}
