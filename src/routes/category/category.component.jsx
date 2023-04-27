@@ -1,13 +1,14 @@
 import { CategoryContainer, CategoryTitle } from './category.styles.jsx';
 import { useParams } from 'react-router-dom';
-import { useState, useContext, useEffect, Fragment } from 'react';
-import { CategoriesContext } from '../../context/categories.context';
+import { useState, useEffect, Fragment } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCategoriesData } from '../../store/categories/categories.selectors.js';
 import ProductCard from '../../components/product-card/product-card.component';
 
 const Category = () => {
 
     const { category } = useParams();
-    const { categories } = useContext(CategoriesContext);
+    const categories = useSelector(selectCategoriesData);
     const [products, setProducts] = useState([]);
     useEffect(() => {
         setProducts(categories.filter((itemCategory) => itemCategory.title.toLowerCase() === category));
