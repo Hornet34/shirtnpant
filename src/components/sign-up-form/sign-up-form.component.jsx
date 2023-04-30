@@ -4,6 +4,8 @@ import { createAuthUserWithEmailAndPassword, createUserDocumnet, getEmailList } 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 import { useNavigate } from 'react-router-dom';
+import { signUpStart } from '../../store/user/user.action';
+import { useDispatch } from 'react-redux';
 
 const defaultFormFields = {
     displayName: '',
@@ -18,6 +20,7 @@ var registeredMails;
 
 const SignUpForm = () => {
 
+    const dispatch = useDispatch();
     const [formFields, setFormFields] = useState(defaultFormFields);
     const [passwordAlert, setPasswordAlert] = useState('');
     const [nameAlert, setNameAlert] = useState('');
@@ -132,29 +135,10 @@ const SignUpForm = () => {
             turnOnFocus();
             return;
         }
+        dispatch(signUpStart(email, password, displayName));
+        // resetForm();
+        getRegisteredMails();
 
-        try {
-            const { user } = await createAuthUserWithEmailAndPassword(email, password);
-            console.log('user created');
-            await createUserDocumnet(user, { displayName });
-            resetForm();
-            getRegisteredMails();
-            navigate('/');
-        }
-        catch (err) {
-            switch (err.code) {
-                case "auth/email-already-in-use":
-                    alert('Email Already in Use');
-                    break;
-                case "auth/weak-password":
-                    alert('Weak Password, Try Again');
-                    break;
-                default:
-                    alert('Sign-up failed');
-                    console.log(err.message);
-            }
-
-        }
     }
 
 

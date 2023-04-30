@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 import SignInGoogle from '../sign-in-google/sign-in-google.component';
-import { signInUserWithEmailAndPassword } from '../../utilities/firebase/firebase';
 import { useNavigate } from 'react-router-dom';
+import { emailSignInStart } from '../../store/user/user.action.js';
+import { useDispatch } from 'react-redux';
 
 const defaultFormFields = {
     email: '',
@@ -13,6 +14,8 @@ const defaultFormFields = {
 const onFocus = { email: false, password: false };
 
 const SignInForm = () => {
+
+    const dispatch = useDispatch();
 
     const [formFields, setFormFields] = useState(defaultFormFields);
     const [passwordAlert, setPasswordAlert] = useState('');
@@ -75,27 +78,8 @@ const SignInForm = () => {
             turnOnFocus();
             return;
         }
-
-        try {
-            await signInUserWithEmailAndPassword(email, password);
-            resetForm();
-            navigate('/');
-        }
-        catch (err) {
-            console.log(err.code);
-            switch (err.code) {
-                case 'auth/user-not-found':
-                    alert('User Not Found');
-                    break;
-                case 'auth/wrong-password':
-                    alert('Wrong Password');
-                    break;
-                default:
-                    alert('Sign-in Failed');
-                    console.log(err.message);
-            }
-            resetForm();
-        }
+        dispatch(emailSignInStart(email, password));
+        resetForm();
     }
 
 

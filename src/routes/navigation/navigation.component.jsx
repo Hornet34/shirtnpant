@@ -6,12 +6,15 @@ import { selectCurrentUser } from '../../store/user/user.selector';
 
 import { ReactComponent as Logo } from '../../assets/Untitled (1).svg';
 import { NavigationContainer, NavLink, NavLinks, LogoContainer } from './navigation.styles.jsx';
-import { signOutListner } from '../../utilities/firebase/firebase';
+import { useDispatch } from 'react-redux';
+import { signOutStart } from '../../store/user/user.action';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 
 const Navigation = () => {
+    const dispatch = useDispatch();
+    const signOutUser = () => dispatch(signOutStart());
     const isCartOpen = useSelector(selectIsCartOpen);
     const currentUser = useSelector(selectCurrentUser);
     return (
@@ -23,7 +26,7 @@ const Navigation = () => {
                 <NavLinks>
                     <NavLink to='/shop' >SHOP</NavLink>
                     {!currentUser ? (<NavLink to='/signIn' >SIGN IN</NavLink>) :
-                        (<NavLink as='span' onClick={signOutListner}>SIGN OUT</NavLink>)}
+                        (<NavLink as='span' onClick={signOutUser}>SIGN OUT</NavLink>)}
                     <CartIcon />
                 </NavLinks>
                 {isCartOpen ? (<CartDropdown />) : null}

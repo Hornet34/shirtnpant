@@ -57,13 +57,12 @@ export const createUserDocumnet = async (userAuth, info) => {
                 createdAt,
                 ...info
             })
-            console.log('successfully created userDocument');
         }
         catch (err) {
             console.log('error creating user', err.message);
         }
     }
-    return userDocRef;
+    return userSnapshot;
 }
 
 export const getEmailList = async (email) => {
@@ -71,14 +70,24 @@ export const getEmailList = async (email) => {
     return usersSnapshot.docs.map((doc) => doc.data().email);
 }
 
-export const onAuthStateChangedListner = (callback) => {
-    onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (user) => {
+                unsubscribe();
+                resolve(user);
+            },
+            reject);
+    });
 }
+
 
 export const signOutListner = async () => {
     await signOut(auth);
-}
 
+}
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
     const colRef = collection(db, collectionKey);
     const batch = writeBatch(db);

@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { onAuthStateChangedListner } from "./utilities/firebase/firebase";
 import { setCurrentUser } from './store/user/user.action';
 
 import Navigation from './routes/navigation/navigation.component';
@@ -16,12 +15,8 @@ import Checkout from './routes/checkout/checkout.component';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListner((user) => {
-
-      dispatch(setCurrentUser(user));
-    })
-    return unsubscribe;
-  });
+    dispatch(setCurrentUser());
+  }, []);
 
   return (
     <Routes>
