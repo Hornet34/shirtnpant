@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { setCurrentUser } from './store/user/user.action';
+import { setCurrentUser } from './store/user/user.slice';
 
 import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component';

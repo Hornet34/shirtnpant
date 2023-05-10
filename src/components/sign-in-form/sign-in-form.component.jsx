@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 import SignInGoogle from '../sign-in-google/sign-in-google.component';
-import { useNavigate } from 'react-router-dom';
-import { emailSignInStart } from '../../store/user/user.action.js';
+import { emailSignInStart } from '../../store/user/user.slice.js';
 import { useDispatch } from 'react-redux';
 
 const defaultFormFields = {
@@ -21,7 +20,6 @@ const SignInForm = () => {
     const [passwordAlert, setPasswordAlert] = useState('');
     const [emailAlert, setEmailAlert] = useState('');
     const { email, password } = formFields;
-    const navigate = useNavigate();
 
 
     const validatingPassword = () => {
@@ -78,7 +76,7 @@ const SignInForm = () => {
             turnOnFocus();
             return;
         }
-        dispatch(emailSignInStart(email, password));
+        dispatch(emailSignInStart({ email, password }));
         resetForm();
     }
 

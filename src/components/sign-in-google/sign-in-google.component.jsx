@@ -1,5 +1,5 @@
 import Button, { buttonTypeClasses } from '../button/button.component';
-import { googleSignInStart } from "../../store/user/user.action";
+import { googleSignInStart } from "../../store/user/user.slice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 

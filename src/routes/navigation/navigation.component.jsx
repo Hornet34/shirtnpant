@@ -7,7 +7,7 @@ import { selectCurrentUser } from '../../store/user/user.selector';
 import { ReactComponent as Logo } from '../../assets/Untitled (1).svg';
 import { NavigationContainer, NavLink, NavLinks, LogoContainer } from './navigation.styles.jsx';
 import { useDispatch } from 'react-redux';
-import { signOutStart } from '../../store/user/user.action';
+import { signOutStart } from '../../store/user/user.slice';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';

@@ -1,10 +1,9 @@
 import { H2, SignUpContainer, FormBtn } from './sign-up-form.style';
 import { useState, useEffect } from "react";
-import { createAuthUserWithEmailAndPassword, createUserDocumnet, getEmailList } from '../../utilities/firebase/firebase';
+import { getEmailList } from '../../utilities/firebase/firebase';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-import { useNavigate } from 'react-router-dom';
-import { signUpStart } from '../../store/user/user.action';
+import { signUpStart } from '../../store/user/user.slice';
 import { useDispatch } from 'react-redux';
 
 const defaultFormFields = {
@@ -26,7 +25,6 @@ const SignUpForm = () => {
     const [nameAlert, setNameAlert] = useState('');
     const [emailAlert, setEmailAlert] = useState('');
     const { displayName, email, password, confirmPassword } = formFields;
-    const navigate = useNavigate();
 
     const checkEmailExists = (email) => {
         for (let mail of registeredMails) {
@@ -135,8 +133,8 @@ const SignUpForm = () => {
             turnOnFocus();
             return;
         }
-        dispatch(signUpStart(email, password, displayName));
-        // resetForm();
+        dispatch(signUpStart({ email, password, displayName }));
+        resetForm();
         getRegisteredMails();
 
     }

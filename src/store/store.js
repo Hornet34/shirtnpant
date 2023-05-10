@@ -1,5 +1,4 @@
-import { compose, applyMiddleware } from 'redux';
-import { legacy_createStore as createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import { rootReducer } from './root-reducer';
 import { persistStore, persistReducer } from 'redux-persist';
@@ -20,11 +19,13 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const middlewares = [process.env.NODE_ENV !== 'production' && logger, sagaMiddleware].filter(Boolean);
 
-const composeEnhancer = (process.env.NODE_ENV !== 'production' && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+export const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false
+    }).concat(middlewares)
+})
 
-const composedEnhancers = composeEnhancer(applyMiddleware(...middlewares));
-
-export const store = createStore(persistedReducer, undefined, composedEnhancers);
 
 sagaMiddleware.run(rootSaga);
 
